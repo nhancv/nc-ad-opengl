@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a GLSurfaceView instance and set it
         // as the ContentView for this Activity.
         glSurfaceView = new MyGLSurfaceView(this);
+        glSurfaceView.setZOrderOnTop(true);
         setContentView(glSurfaceView);
     }
 }

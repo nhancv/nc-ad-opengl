@@ -3,7 +3,6 @@ package com.nhancv.opengl;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.os.SystemClock;
 
 import com.nhancv.opengl.shape.Square;
 import com.nhancv.opengl.shape.Triangle;
@@ -28,7 +27,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Set the background frame color
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        gl.glClearColor(0, 0, 0, 0);
+
         // initialize a triangle
         mTriangle = new Triangle();
         // initialize a square
