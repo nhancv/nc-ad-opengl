@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.nhancv.opengl.fps.FpsListener;
+import com.nhancv.opengl.fps.StableFps;
+
 //https://developer.android.com/training/graphics/opengl/environment.html#java
 public class MainActivity extends AppCompatActivity {
-
+    private StableFps stableFps;
     private MyGLSurfaceView glSurfaceView;
 
     @Override
@@ -20,28 +23,34 @@ public class MainActivity extends AppCompatActivity {
         glSurfaceView = findViewById(R.id.my_glsurfaceview);
         glSurfaceView.setZOrderOnTop(true);
 
+        stableFps = new StableFps(30);
+
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         glSurfaceView.onResume();
 
-        glSurfaceView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                glSurfaceView.captureBitmap(new MyGLSurfaceView.BitmapReadyCallbacks() {
-                    @Override
-                    public void onBitmapReady(Bitmap bitmap) {
-                        ((ImageView)findViewById(R.id.iv)).setImageBitmap(bitmap);
-                    }
-                });
-            }
-        }, 2000);
+        if (!stableFps.isStarted()) {
+            stableFps.start(new FpsListener() {
+                @Override
+                public void update(int fps) {
+                    glSurfaceView.captureBitmap(new MyGLSurfaceView.BitmapReadyCallbacks() {
+                        @Override
+                        public void onBitmapReady(Bitmap bitmap) {
+                            ((ImageView) findViewById(R.id.iv)).setImageBitmap(bitmap);
+                        }
+                    });
+                }
+            });
+        }
     }
+
     @Override
-    protected void onPause(){
-        super.onPause();
+    protected void onPause() {
+        stableFps.stop();
         glSurfaceView.onPause();
+        super.onPause();
     }
 }

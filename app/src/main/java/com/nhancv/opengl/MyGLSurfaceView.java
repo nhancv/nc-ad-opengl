@@ -95,6 +95,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
      * });
      */
     public void captureBitmap(final BitmapReadyCallbacks bitmapReadyCallbacks) {
+        if (getWidth() == 0 || getHeight() == 0) return;
         queueEvent(new Runnable() {
             @Override
             public void run() {
