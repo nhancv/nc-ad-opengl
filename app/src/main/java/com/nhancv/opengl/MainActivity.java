@@ -18,4 +18,15 @@ public class MainActivity extends AppCompatActivity {
         glSurfaceView = findViewById(R.id.my_glsurfaceview);
         glSurfaceView.setZOrderOnTop(true);
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        glSurfaceView.onResume();
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        glSurfaceView.onPause();
+    }
 }

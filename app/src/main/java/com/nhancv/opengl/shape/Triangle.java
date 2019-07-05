@@ -44,6 +44,12 @@ public class Triangle {
     private int vPMatrixHandle;
     private final int mProgram;
 
+    private int positionHandle;
+    private int colorHandle;
+
+    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
+    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
+
     public Triangle() {
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
@@ -76,12 +82,6 @@ public class Triangle {
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
     }
-
-    private int positionHandle;
-    private int colorHandle;
-
-    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
-    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
     public void draw(float[] mvpMatrix) { // pass in the calculated transformation matrix
         // Add program to OpenGL ES environment
