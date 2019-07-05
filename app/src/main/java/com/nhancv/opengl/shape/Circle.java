@@ -63,8 +63,6 @@ public class Circle {
 
     // calculate the segments
     public void calculatePoints(float cx, float cy, float radius, int segments) {
-        DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
-
         float[] coordinates = new float[segments * COORDS_PER_VERTEX];
 
         for (int i = 0; i < segments * 3; i += 3) {
@@ -76,7 +74,7 @@ public class Circle {
             float yi = cy + radius * (float) Math.sin(rad);
 
             coordinates[i] = xi;
-            coordinates[i + 1] = yi / (((float) dm.heightPixels / (float) dm.widthPixels));
+            coordinates[i + 1] = yi;
             coordinates[i + 2] = 0.0f;
         }
 

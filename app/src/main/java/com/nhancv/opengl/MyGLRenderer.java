@@ -5,7 +5,6 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
 import com.nhancv.opengl.shape.Circle;
-import com.nhancv.opengl.shape.Square;
 import com.nhancv.opengl.shape.Triangle;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -14,9 +13,8 @@ import javax.microedition.khronos.opengles.GL10;
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Triangle mTriangle;
-    private Square mSquare;
     private Circle circle;
-    
+
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] vPMatrix = new float[16];
     private final float[] projectionMatrix = new float[16];
@@ -33,9 +31,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // initialize a triangle
         mTriangle = new Triangle();
-        // initialize a square
-        mSquare = new Square();
-        circle = new Circle(0,0, 0.1f, 55);
+        // initialize a circle
+        circle = new Circle(0, 0, 0.7f, 100);
     }
 
     @Override
@@ -54,6 +51,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         float[] scratch = new float[16];
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
+        // Draw circle without camera projection
+        circle.draw();
+
         // Set the camera position (View matrix)
         Matrix.setLookAtM(viewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
@@ -76,7 +77,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Draw triangle
         mTriangle.draw(scratch);
 
-        circle.draw();
     }
 
     public float getAngle() {
